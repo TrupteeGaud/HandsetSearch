@@ -1,9 +1,17 @@
 package com.billing;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.billing.config.DiscountProperties;
 import com.billing.dto.Bill;
 import com.billing.dto.Customer;
 
+@Service
 public class DiscountCalculation {
+	
+	@Autowired
+	private DiscountProperties discountProperties;
 
 	/*
 	 * This method calculates discount for based on various scenarios
@@ -36,13 +44,13 @@ public class DiscountCalculation {
 	 */
 	private double checkCustomerBasedDiscount(Customer cust, double billAmt) {
 		if(cust.getCustomerType().equalsIgnoreCase("employee"))
-			return billAmt * 0.3;
+			return billAmt * discountProperties.getEmployee();
 		else
 			if(cust.getCustomerType().equalsIgnoreCase("affiliate"))
-				return billAmt * 0.1;
+				return billAmt * discountProperties.getAffiliate();
 			else 
 				if (cust.getNoOfYears() >= 2)
-					return billAmt * 0.05;
+					return billAmt * discountProperties.getTwoYears();
 
 		return 0;
 	}
