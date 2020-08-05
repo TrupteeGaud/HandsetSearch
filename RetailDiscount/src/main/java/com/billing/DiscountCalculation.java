@@ -5,6 +5,9 @@ import com.billing.dto.Customer;
 
 public class DiscountCalculation {
 
+	/*
+	 * This method calculates discount for based on various scenarios
+	 */
 	public double calculateDiscount(Bill bill, Customer cust)
 	{
 		double discountAmt=0;
@@ -28,6 +31,9 @@ public class DiscountCalculation {
 		return billAmt;
 	}
 
+	/*
+	 * This method calculates discount based on customer type
+	 */
 	private double checkCustomerBasedDiscount(Customer cust, double billAmt) {
 		if(cust.getCustomerType().equalsIgnoreCase("employee"))
 			return billAmt * 0.3;
