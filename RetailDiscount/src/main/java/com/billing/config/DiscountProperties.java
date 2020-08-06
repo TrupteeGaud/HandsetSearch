@@ -16,6 +16,8 @@ public class DiscountProperties {
 	
 	private double twoYears;
 	
+	private int perhundred;
+	
 	public double getEmployee() {
 		return employee;
 	}
@@ -33,6 +35,14 @@ public class DiscountProperties {
 	}
 	public void setTwoYears(double twoYears) {
 		this.twoYears = twoYears;
-	}	
+	}
+	public int getPerhundred() {
+		return perhundred;
+	}
+	public void setPerhundred(int perhundred) {
+		this.perhundred = perhundred;
+	}
+	
+	
 	
 }

@@ -1,5 +1,7 @@
 package com.billing;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,42 +18,33 @@ public class DiscountCalculation {
 	/*
 	 * This method calculates discount for based on various scenarios
 	 */
-	public double calculateDiscount(Bill bill, Customer cust)
+	public double calculateDiscount(List<Bill> bills, Customer cust)
 	{
 		double discountAmt=0;
-		double billAmt = bill.getTotalAmount();
-
-		try {
-			if(!bill.getItemTypes().equalsIgnoreCase("groceries"))
-				discountAmt = checkCustomerBasedDiscount(cust,billAmt);
-			else
-				discountAmt=0;
-			
-			if(billAmt >= 100)
-			{
-				discountAmt += billAmt / 20;
-			}
-
-			billAmt = billAmt - discountAmt;
-		}catch (Exception e) {
-			System.out.println("Error occured :" + e.getMessage());
+		double discountPercentage = checkCustomerBasedDiscount(cust);
+		for (Bill bill : bills) {
+			discountAmt += + bill.getDiscountedPrice(discountPercentage);
 		}
-		return billAmt;
+		return Math.round(discountAmt - getDiscountBasedOnTotalAmount(discountAmt));
 	}
 
 	/*
 	 * This method calculates discount based on customer type
 	 */
-	private double checkCustomerBasedDiscount(Customer cust, double billAmt) {
+	private double checkCustomerBasedDiscount(Customer cust) {
 		if(cust.getCustomerType().equalsIgnoreCase("employee"))
-			return billAmt * discountProperties.getEmployee();
+			return discountProperties.getEmployee();
 		else
 			if(cust.getCustomerType().equalsIgnoreCase("affiliate"))
-				return billAmt * discountProperties.getAffiliate();
+				return discountProperties.getAffiliate();
 			else 
-				if (cust.getNoOfYears() >= 2)
-					return billAmt * discountProperties.getTwoYears();
+				if (cust.isAvailableForLoyaltyDiscount())
+					return discountProperties.getTwoYears();
 
 		return 0;
+	}
+	
+	private double getDiscountBasedOnTotalAmount(double totalDiscountedPrice) {
+		return Math.floor(totalDiscountedPrice / 100) * discountProperties.getPerhundred();
 	}
 }

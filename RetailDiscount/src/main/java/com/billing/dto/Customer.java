@@ -1,16 +1,22 @@
 package com.billing.dto;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Customer {
 
+	private static final int CUSTOMER_LOYALTY_TIME_PERIOD_IN_YRS = 2;
+			
 	private int customerId;
 	private String customerType;
-	private int noOfYears;
+	private Date registrationDate;
 	
-	public Customer(int custId, String customerType2, int numOfYears) {
+	public Customer(int custId, String customerType2, Date registrationDate) {
 		super();
-		setCustomerId(custId);
-		setCustomerType(customerType2);
-		setNoOfYears(numOfYears);
+		this.customerId=custId;
+		this.customerType=customerType2;
+		this.registrationDate=registrationDate;
+
 	}
 	public int getCustomerId() {
 		return customerId;
@@ -24,12 +30,19 @@ public class Customer {
 	public void setCustomerType(String customerType) {
 		this.customerType = customerType;
 	}
-	public int getNoOfYears() {
-		return noOfYears;
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
-	public void setNoOfYears(int noOfYears) {
-		this.noOfYears = noOfYears;
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
 	
+	public boolean isAvailableForLoyaltyDiscount() {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(registrationDate);
+		cal.add(Calendar.YEAR, CUSTOMER_LOYALTY_TIME_PERIOD_IN_YRS);
+		Date dateToCompare = cal.getTime();
+		return registrationDate.before(dateToCompare);
+	}
 	
 }
