@@ -1,12 +1,17 @@
 package com.axiom.mobile.dto;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
-public class Hardware {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-	@Id
+@Data
+@AllArgsConstructor
+@Embeddable
+public class Hardware {
+	
 	private String audioJack;
 	private String gps;
 	private String battery;
@@ -30,5 +35,5 @@ public class Hardware {
 		this.battery = battery;
 	}
 	
-	
+	public Hardware() {}
 }

@@ -1,5 +1,6 @@
 package com.axiom.mobile.dto;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -15,11 +16,13 @@ public class Handset {
 	private int id;
 	private String brand;
 	private String phone;
-	private String picture;;
-	//private ReleaseDetails release;
+	private String picture;
+	@Embedded
+	private Release release;
 	private String sim;
 	private String resolution;
-	//private Hardware hardware;
+	@Embedded
+	private Hardware hardware;
 	
 	public int getId() {
 		return id;
@@ -45,11 +48,13 @@ public class Handset {
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
-
-	/*
-	 * public ReleaseDetails getRelease() { return release; } public void
-	 * setRelease(ReleaseDetails release) { this.release = release; }
-	 */
+	public Release getRelease() {
+		return release; 
+	} 
+	public void setRelease(Release release) { 
+		this.release = release; 
+	}
+	 
 	public String getSim() {
 		return sim;
 	}
@@ -62,10 +67,10 @@ public class Handset {
 	public void setResolution(String resolution) {
 		this.resolution = resolution;
 	}
-	/*
-	 * public Hardware getHardware() { return hardware; } public void
-	 * setHardware(Hardware hardware) { this.hardware = hardware; }
-	 */
+	
+	  public Hardware getHardware() { return hardware; } public void
+	  setHardware(Hardware hardware) { this.hardware = hardware; }
+	 
 	
 	
 }
