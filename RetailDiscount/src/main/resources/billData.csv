@@ -1,5 +1,0 @@
-BillAmount,ItemType,CustomerId,CustomerType,numOfYears,expecedValue
-100,groceries,101,employee,1,95
-200,electronic,199,employee,3,130
-200,electronic,199,affiliate,3,170
-0,groceries,20,cust,1,0

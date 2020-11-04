@@ -8,12 +8,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale.Builder;
 
 import javax.persistence.EntityNotFoundException;
 
-import org.assertj.core.internal.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -40,8 +40,10 @@ public class HandsetServiceTest {
 	public void get_by_specification_should_return_entities_list() {
 		// Given
 		Specification querySpec = mock(Specification.class);
+		
+		when(handsetRepository.findAll(querySpec)).thenCallRealMethod();
 		List<Handset> foundHandset = handsetService.get(querySpec);
-
+		
 		// Then
 		verify(handsetRepository, times(1)).findAll(querySpec);
 		assertThat("Apple").isEqualTo(foundHandset.get(0).getBrand());
