@@ -10,21 +10,26 @@ import com.axiom.mobile.dto.Handset;
 import com.axiom.mobile.repo.HandsetRepository;
 
 @Service
-public class HandsetService extends HandsetDataService<Handset> {
+public class HandsetService {
 
-	 HandsetRepository handsetRepository;
+	HandsetRepository handsetRepository;
 
-	    @Autowired
-	    public HandsetService(HandsetRepository handsetRepository) {
-	    	super(Handset.class);
-	        this.handsetRepository = handsetRepository;
-	    }
+	@Autowired
+	public HandsetService(HandsetRepository handsetRepository) {
+		super();
+		this.handsetRepository = handsetRepository;
+	}
 
-	    
+
 	public List<Handset> get(Specification<Handset> spec)
 	{
 		return handsetRepository.findAll(spec);
 	}
-	
-	
+
+	public Iterable<Handset> save(List<Handset> handsets)
+	{
+		return handsetRepository.saveAll(handsets);
+	}
+
+
 }

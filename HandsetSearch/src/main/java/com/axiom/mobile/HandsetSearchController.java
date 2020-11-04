@@ -39,11 +39,13 @@ public class HandsetSearchController {
 			@And({ 
 					@Spec(path="brand", params="brand", spec= Equal.class),
 					@Spec(path="phone", params="phone", spec= Like.class),
-					@Spec(path="priceEur", params="priceEur", spec= Equal.class),
+					@Spec(path="priceEur", params="release/priceEur", spec= Equal.class),
 					@Spec(path="resolution", params="resolution", spec= Equal.class),
 					@Spec(path="audioJack", params="audioJack", spec= Equal.class),
 					@Spec(path="gps", params="gps", spec= Equal.class),
 					@Spec(path="battery", params="battery", spec= Like.class),
+					@Spec(path="sim", params="sim", spec= Equal.class),
+					@Spec(path="announceDate", params="release/announceDate", spec= Like.class),
 			}) Specification<Handset> spec)
 	{
 		List<Handset> response = handsetService.get(spec);
